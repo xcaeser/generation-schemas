@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/xcaeser/generation-schemas/main/schemas/v1.0.0/image-generation.schema.json",
+  "title": "Image Generation Prompt Schema",
+  "description": "Structured description of a visual scene for generative AI rendering.",
+  "type": "object",
+  "required": [
+    "scene",
+    "subjects",
+    "style",
+    "lighting",
+    "mood",
+    "background",
+    "composition",
+    "camera",
+    "color_palette",
+    "props",
+    "resolution"
+  ],
+  "properties": {
+    "scene": {
+      "type": "string",
+      "description": "Brief natural language summary of the overall scene."
+    },
+    "subjects": {
+      "type": "array",
+      "description": "Main people or characters in the scene.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "description", "pose", "position", "expression"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Category or role (e.g. 'young woman', 'man')."
+          },
+          "description": {
+            "type": "string",
+            "description": "Visual description including age, features, and clothing."
+          },
+          "pose": {
+            "type": "string",
+            "description": "Pose or body language (e.g. 'leaning forward')."
+          },
+          "position": {
+            "type": "string",
+            "description": "Visual position in the frame (e.g. 'left foreground')."
+          },
+          "expression": {
+            "type": "string",
+            "description": "Facial expression or emotion (e.g. 'smiling softly')."
+          }
+        }
+      }
+    },
+    "style": {
+      "type": "string",
+      "description": "Artistic style (e.g. 'hyper-realistic photography', 'digital painting')."
+    },
+    "lighting": {
+      "type": "string",
+      "description": "Lighting style and ambiance (e.g. 'golden hour with soft shadows')."
+    },
+    "mood": {
+      "type": "string",
+      "description": "Emotional or atmospheric tone (e.g. 'warm and intimate')."
+    },
+    "background": {
+      "type": "object",
+      "required": ["elements", "depth_of_field"],
+      "description": "Details of the background environment.",
+      "properties": {
+        "elements": {
+          "type": "array",
+          "description": "List of visible background features (e.g. 'bicycles', 'pedestrians').",
+          "items": { "type": "string" }
+        },
+        "depth_of_field": {
+          "type": "string",
+          "description": "Focus treatment for background (e.g. 'shallow, blurred')."
+        }
+      }
+    },
+    "composition": {
+      "type": "string",
+      "description": "Visual framing method (e.g. 'rule of thirds')."
+    },
+    "camera": {
+      "type": "object",
+      "required": ["angle", "distance", "focus"],
+      "description": "Camera framing details.",
+      "properties": {
+        "angle": {
+          "type": "string",
+          "description": "Camera angle (e.g. 'eye level')."
+        },
+        "distance": {
+          "type": "string",
+          "description": "Camera distance from subjects (e.g. 'medium close-up')."
+        },
+        "focus": {
+          "type": "string",
+          "description": "Focus point (e.g. 'sharp on characters' faces')."
+        }
+      }
+    },
+    "color_palette": {
+      "type": "array",
+      "description": "Dominant colors to use in the scene.",
+      "items": { "type": "string" }
+    },
+    "props": {
+      "type": "array",
+      "description": "Items in the scene (e.g. 'coffee cup', 'notebook').",
+      "items": { "type": "string" }
+    },
+    "resolution": {
+      "type": "string",
+      "description": "Desired output resolution (e.g. '4K', '1080p')."
+    },
+    "text_overlays": {
+      "type": "array",
+      "description": "Text elements to display within the image.",
+      "items": {
+        "type": "object",
+        "required": ["content", "position"],
+        "properties": {
+          "content": {
+            "type": "string",
+            "description": "The text to show."
+          },
+          "position": {
+            "type": "string",
+            "description": "Text placement (e.g. 'top-left', 'center', 'bottom-right')."
+          },
+          "style": {
+            "type": "string",
+            "description": "Font style and color (e.g. 'bold white serif', 'elegant script in gold')."
+          },
+          "size": {
+            "type": "string",
+            "description": "Relative or absolute text size (e.g. 'large', '14pt')."
+          }
+        }
+      }
+    }
+  }
+}
