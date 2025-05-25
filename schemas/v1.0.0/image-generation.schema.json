@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/xcaeser/generation-schemas/main/schemas/v1.0.0/image-generation.schema.json",
-  "title": "Image Generation Prompt Schema",
-  "description": "Structured description of a visual scene for generative AI rendering.",
+  "title": "Image Generation Prompt Schema for AI Studio",
+  "description": "This schema defines a structured way to describe a visual scene for generative AI models. Providing detailed, well-organized prompts helps the AI understand your intent more accurately, leading to higher quality and more specific image outputs. Use this schema to guide your AI Studio prompt creation for optimal results. Each field contributes to a different aspect of the final image, from the overall concept to minute details.",
   "type": "object",
   "required": [
     "scene",
@@ -20,11 +20,11 @@
   "properties": {
     "scene": {
       "type": "string",
-      "description": "Brief natural language summary of the overall scene."
+      "description": "A concise, high-level summary of the entire visual scene. This sets the overall stage. Think of it as the 'elevator pitch' for your image. Be descriptive but brief.\nExamples:\n- 'A lone astronaut discovering an ancient alien artifact on a desolate Mars landscape.'\n- 'A bustling medieval marketplace filled with merchants, shoppers, and street performers.'\n- 'A serene, enchanted forest clearing at twilight with glowing flora.'"
     },
     "subjects": {
       "type": "array",
-      "description": "Main people or characters in the scene.",
+      "description": "Defines the main characters, creatures, or animate objects that are the focus of the scene. At least one subject is required. For inanimate focal points (e.g., a magical sword), consider if it's a 'prop' or if its significance elevates it to a 'subject'.",
       "minItems": 1,
       "items": {
         "type": "object",
@@ -32,114 +32,114 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Category or role (e.g. 'young woman', 'man')."
+            "description": "The general category or archetype of the subject. This helps the AI understand the subject's fundamental nature.\nExamples:\n- 'young woman'\n- 'elderly wizard'\n- 'cybernetic wolf'\n- 'brave knight'\n- 'mischievous fairy'"
           },
           "description": {
             "type": "string",
-            "description": "Visual description including age, features, and clothing."
+            "description": "Detailed visual characteristics of the subject, including physical features, attire, and any distinguishing marks. The more specific you are, the closer the AI can get to your vision.\nExamples:\n- 'A 20-year-old woman with fiery red hair in a messy bun, freckles, wearing a leather jacket, ripped jeans, and combat boots.'\n- 'An ancient dragon with iridescent blue scales, a long, serpentine body, and eyes like molten gold, adorned with glowing runes.'\n- 'A robot with a polished chrome exterior, glowing blue optics, and visible gears, holding a datapad.'"
           },
           "pose": {
             "type": "string",
-            "description": "Pose or body language (e.g. 'leaning forward')."
+            "description": "The subject's body language or action. This conveys activity and intent.\nExamples:\n- 'standing confidently with arms crossed'\n- 'crouching low, ready to pounce'\n- 'mid-stride, running energetically'\n- 'sitting pensively, gazing into the distance'\n- 'levitating with arms outstretched'"
           },
           "position": {
             "type": "string",
-            "description": "Visual position in the frame (e.g. 'left foreground')."
+            "description": "The subject's placement within the visual frame. This helps establish their relationship to other elements and the viewer.\nExamples:\n- 'center frame, dominant'\n- 'foreground left, slightly out of focus'\n- 'background right, partially obscured by mist'\n- 'mid-ground, interacting with another subject'"
           },
           "expression": {
             "type": "string",
-            "description": "Facial expression or emotion (e.g. 'smiling softly')."
+            "description": "The facial expression or emotional state conveyed by the subject. Crucial for storytelling and mood.\nExamples:\n- 'smiling warmly and invitingly'\n- 'a look of fierce determination'\n- 'eyes wide with awe and wonder'\n- 'a subtle, enigmatic smirk'\n- 'grimacing in pain'"
           }
         }
       }
     },
     "style": {
       "type": "string",
-      "description": "Artistic style (e.g. 'hyper-realistic photography', 'digital painting')."
+      "description": "The overall artistic or visual style of the image. This is a powerful field that dramatically influences the look and feel. You can reference specific art movements, artists, or general aesthetic terms.\nExamples:\n- 'photorealistic, cinematic'\n- 'impressionistic oil painting'\n- 'anime concept art, Makoto Shinkai style'\n- 'steampunk digital illustration'\n- 'Art Nouveau poster design'\n- 'Studio Ghibli animation style'\n- 'retro 8-bit pixel art'"
     },
     "lighting": {
       "type": "string",
-      "description": "Lighting style and ambiance (e.g. 'golden hour with soft shadows')."
+      "description": "Describes the lighting conditions, light sources, and their effect on the scene. Lighting is key to mood and realism.\nExamples:\n- 'golden hour, soft warm light with long shadows'\n- 'dramatic chiaroscuro, high contrast between light and dark'\n- 'moonlit night, cool blue tones, subtle highlights'\n- 'overcast day, diffused, even lighting'\n- 'neon city lights at night, casting vibrant, colorful reflections'\n- 'eerie bioluminescent glow from plants and fungi'"
     },
     "mood": {
       "type": "string",
-      "description": "Emotional or atmospheric tone (e.g. 'warm and intimate')."
+      "description": "The dominant emotional atmosphere or feeling the image should evoke. This often works in conjunction with lighting and color palette.\nExamples:\n- 'serene and peaceful'\n- 'dark, ominous, and suspenseful'\n- 'joyful, vibrant, and energetic'\n- 'mysterious and enchanting'\n- 'nostalgic and melancholic'\n- 'epic and awe-inspiring'"
     },
     "background": {
       "type": "object",
       "required": ["elements", "depth_of_field"],
-      "description": "Details of the background environment.",
+      "description": "Details about the environment or setting behind the main subjects. This provides context and depth to the scene.",
       "properties": {
         "elements": {
           "type": "array",
-          "description": "List of visible background features (e.g. 'bicycles', 'pedestrians').",
+          "description": "A list of key features, objects, or environmental details visible in the background. Don't over-clutter; focus on what's important for context.\nExamples:\n- `['towering snow-capped mountains', 'a distant, crumbling castle', 'dense, foggy forest']`\n- `['futuristic skyscrapers with flying vehicles', 'a holographic billboard', 'crowded streets below']`\n- `['calm ocean waves', 'a tropical beach with palm trees', 'a setting sun on the horizon']`",
           "items": { "type": "string" }
         },
         "depth_of_field": {
           "type": "string",
-          "description": "Focus treatment for background (e.g. 'shallow, blurred')."
+          "description": "How focus is handled for the background, affecting its clarity relative to the subjects. This mimics camera lens effects.\nExamples:\n- 'shallow, background heavily blurred (strong bokeh effect)'\n- 'deep, entire scene in sharp focus'\n- 'medium, background slightly out of focus to emphasize subjects'\n- 'rack focus effect, shifting from foreground to background'"
         }
       }
     },
     "composition": {
       "type": "string",
-      "description": "Visual framing method (e.g. 'rule of thirds')."
+      "description": "The arrangement of visual elements within the frame. Referencing compositional rules can guide the AI to create a more balanced and aesthetically pleasing image.\nExamples:\n- 'rule of thirds, subject on left vertical line'\n- 'symmetrical, perfectly balanced'\n- 'leading lines guiding the eye towards the subject'\n- 'golden ratio composition'\n- 'dynamic diagonal composition'\n- 'centered subject, minimalist background'"
     },
     "camera": {
       "type": "object",
       "required": ["angle", "distance", "focus"],
-      "description": "Camera framing details.",
+      "description": "Specifies the virtual camera's viewpoint, framing, and focus, as if you were a photographer or cinematographer.",
       "properties": {
         "angle": {
           "type": "string",
-          "description": "Camera angle (e.g. 'eye level')."
+          "description": "The angle from which the scene is viewed. This impacts the viewer's perspective on the subjects and their power dynamic.\nExamples:\n- 'eye-level shot'\n- 'low-angle shot (looking up at subject, making them appear dominant)'\n- 'high-angle shot (looking down on subject, making them appear vulnerable)'\n- 'Dutch angle (tilted, creating unease)'\n- 'bird's-eye view (directly overhead)'\n- 'worm's-eye view (directly from below)'"
         },
         "distance": {
           "type": "string",
-          "description": "Camera distance from subjects (e.g. 'medium close-up')."
+          "description": "How close or far the camera is from the primary subjects. This determines how much of the subject and their surroundings are visible.\nExamples:\n- 'extreme close-up (ECU) on eyes'\n- 'close-up (CU) of face and shoulders'\n- 'medium shot (MS) from waist up'\n- 'full shot (FS) showing entire body'\n- 'long shot (LS) showing subject within their environment'\n- 'establishing shot showing the overall location'"
         },
         "focus": {
           "type": "string",
-          "description": "Focus point (e.g. 'sharp on characters' faces')."
+          "description": "Specifies the main point of focus in the image. This directs the viewer's attention.\nExamples:\n- 'sharp focus on the primary subject's face'\n- 'selective focus on a specific prop held by the subject'\n- 'soft focus overall for a dreamy effect'\n- 'everything in sharp focus (deep focus)'"
         }
       }
     },
     "color_palette": {
       "type": "array",
-      "description": "Dominant colors to use in the scene.",
+      "description": "A list of dominant or significant colors to be used in the scene. This can also describe a color scheme or temperature.\nExamples:\n- `['monochromatic blues and grays']`\n- `['warm earth tones: terracotta, ochre, forest green']`\n- `['vibrant neon pinks, cyans, and electric yellows']`\n- `['pastel palette: lavender, mint green, baby blue']`\n- `['sepia tones for a vintage look']`",
       "items": { "type": "string" }
     },
     "props": {
       "type": "array",
-      "description": "Items in the scene (e.g. 'coffee cup', 'notebook').",
+      "description": "Specific, usually inanimate, items or objects present in the scene that subjects might interact with or that add detail/context. Differentiate from 'background elements' by their potential for interaction or closer focus.\nExamples:\n- `['a steaming cup of coffee on a wooden table']`\n- `['an ancient, glowing sword embedded in a stone']`\n- `['a scattered pile of old books and scrolls']`\n- `['a futuristic data-pad displaying complex schematics']`",
       "items": { "type": "string" }
     },
     "resolution": {
       "type": "string",
-      "description": "Desired output resolution (e.g. '4K', '1080p')."
+      "description": "The desired output resolution and aspect ratio for the generated image. Common formats are preferred.\nExamples:\n- '1024x1024 (square)'\n- '1920x1080 (16:9 landscape, Full HD)'\n- '1080x1920 (9:16 portrait, for mobile stories)'\n- '2048x2048 (high-res square)'\n- '1280x720 (16:9 landscape, HD)'"
     },
     "text_overlays": {
       "type": "array",
-      "description": "Text elements to display within the image.",
+      "description": "(Optional) Text elements to be rendered onto the image. Useful for titles, watermarks, or in-scene text like signs. AI generation of coherent text can be challenging, so keep it simple or use for stylistic effect.",
       "items": {
         "type": "object",
         "required": ["content", "position"],
         "properties": {
           "content": {
             "type": "string",
-            "description": "The text to show."
+            "description": "The actual text string to display.\nExamples:\n- 'The Lost City'\n- 'Episode 3'\n- '© AI Studio 2024'"
           },
           "position": {
             "type": "string",
-            "description": "Text placement (e.g. 'top-left', 'center', 'bottom-right')."
+            "description": "Where the text should be placed on the image. Be as specific as possible.\nExamples:\n- 'bottom-center'\n- 'top-left corner'\n- 'middle, slightly to the right'\n- 'across the top banner area'"
           },
           "style": {
             "type": "string",
-            "description": "Font style and color (e.g. 'bold white serif', 'elegant script in gold')."
+            "description": "Describes the font, color, and style of the text. AI might interpret this broadly.\nExamples:\n- 'bold white sans-serif font'\n- 'elegant gold script font'\n- 'glowing red futuristic font'\n- 'distressed, grungy lettering in black'"
           },
           "size": {
             "type": "string",
-            "description": "Relative or absolute text size (e.g. 'large', '14pt')."
+            "description": "Relative or absolute size of the text. AI interpretation may vary.\nExamples:\n- 'large and prominent'\n- 'small and subtle'\n- '24pt (if supported)'\n- '10% of image height'"
           }
         }
       }
