@@ -115,8 +115,27 @@
       "items": { "type": "string" }
     },
     "resolution": {
-      "type": "string",
-      "description": "The desired output resolution and aspect ratio for the generated image. Common formats are preferred.\nExamples:\n- '1024x1024 (square)'\n- '1920x1080 (16:9 landscape, Full HD)'\n- '1080x1920 (9:16 portrait, for mobile stories)'\n- '2048x2048 (high-res square)'\n- '1280x720 (16:9 landscape, HD)'"
+      "type": "object",
+      "description": "Defines the desired output image dimensions and aspect ratio. Providing explicit width, height, and aspect ratio ensures the AI generates an image with the intended proportions and size.",
+      "required": ["width", "height", "aspect_ratio"],
+      "properties": {
+        "width": {
+          "type": "integer",
+          "description": "The desired width of the output image in pixels. This directly impacts the level of detail and file size.\nExample: 1920 (for Full HD landscape), 1080 (for Full HD portrait or square)"
+        },
+        "height": {
+          "type": "integer",
+          "description": "The desired height of the output image in pixels. Works in conjunction with width to define the image's overall size.\nExample: 1080 (for Full HD landscape or square), 1920 (for Full HD portrait)"
+        },
+        "aspect_ratio": {
+          "type": "string",
+          "description": "The proportional relationship between the image's width and height. This should be consistent with the provided width and height values. Common formats are 'W:H'.\nExamples:\n- '16:9' (standard widescreen for videos, landscape images)\n- '1:1' (square, common for social media profiles)\n- '9:16' (portrait widescreen, for mobile stories)\n- '4:3' (traditional photography and older displays)\n- '3:2' (common in photography, e.g., DSLRs)"
+        },
+        "label": {
+          "type": "string",
+          "description": "(Optional) A human-readable label for the resolution and aspect ratio combination. This is for convenience and documentation, not typically parsed by the AI.\nExamples:\n- 'Full HD Landscape'\n- 'Square HD'\n- 'Mobile Story Portrait'\n- '4K Widescreen'"
+        }
+      }
     },
     "text_overlays": {
       "type": "array",
