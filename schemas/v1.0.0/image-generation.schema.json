@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/xcaeser/generation-schemas/main/schemas/v1.0.0/image-generation.schema.json",
   "title": "Image Generation Prompt Schema for AI Studio",
-  "description": "This schema defines the basic structure for a visual scene description for generative AI models. Detailed options, suggestions, and strong typing are provided by the corresponding TypeScript types. This schema is for basic validation of raw JSON data.",
+  "description": "This schema defines a structured way to describe a visual scene for generative AI models. It reflects the structure of the corresponding TypeScript types, which provide detailed options and suggestions. This JSON schema is for basic validation of raw JSON data.",
   "type": "object",
   "required": [
     "scene",
@@ -14,17 +14,16 @@
     "composition",
     "camera",
     "color_palette",
-    "props",
     "resolution"
   ],
   "properties": {
     "scene": {
       "type": "string",
-      "description": "A concise, high-level summary of the entire visual scene. Refer to TypeScript types for detailed examples.\nExamples:\n- 'A lone astronaut discovering an ancient alien artifact on a desolate Mars landscape.'"
+      "description": "A concise, high-level summary of the entire visual scene. Sets the overall stage.\nExample: 'A lone astronaut discovering an ancient alien artifact on a desolate Mars landscape.'"
     },
     "subjects": {
       "type": "array",
-      "description": "Main people or characters in the scene. At least one subject is required. Refer to TypeScript types for the 'Subject' structure.",
+      "description": "Defines the main characters, creatures, or animate objects. At least one subject is required. Refer to TypeScript 'Subject' type for full structure.",
       "minItems": 1,
       "items": {
         "type": "object",
@@ -32,87 +31,107 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "Category or role (e.g. 'young woman', 'elderly wizard')."
+            "description": "General category or archetype (e.g., 'young woman', 'elderly wizard')."
           },
           "description": {
             "type": "string",
-            "description": "Visual description including age, features, and clothing."
+            "description": "Detailed visual characteristics (physical features, attire, etc.)."
           },
           "pose": {
             "type": "string",
-            "description": "Pose or body language (e.g. 'leaning forward')."
+            "description": "Subject's body language or action (e.g., 'standing confidently')."
           },
           "position": {
             "type": "string",
-            "description": "Visual position in the frame (e.g. 'left foreground')."
+            "description": "Placement within the visual frame. Refer to TypeScript 'SubjectPositionOption' for suggestions (e.g., 'center frame')."
           },
           "expression": {
             "type": "string",
-            "description": "Facial expression or emotion (e.g. 'smiling softly')."
+            "description": "Facial expression or emotional state (e.g., 'smiling warmly')."
+          },
+          "accessories": {
+            "type": "array",
+            "description": "(Optional) Specific accessories or distinct clothing items needing emphasis.",
+            "items": { "type": "string" },
+            "examples": [["silver locket necklace", "worn leather satchel"]]
           }
         }
       }
     },
     "style": {
       "type": "string",
-      "description": "The overall artistic or visual style. Refer to TypeScript 'StyleOption' type for suggested values and the option for custom strings."
+      "description": "The overall artistic or visual style. Refer to TypeScript 'StyleOption' type for extensive suggested values (e.g., 'photorealistic, cinematic', 'impressionistic oil painting') or provide a custom string."
     },
     "lighting": {
       "type": "string",
-      "description": "Lighting style and ambiance. Refer to TypeScript 'LightingOption' type for suggested values and the option for custom strings."
+      "description": "Lighting conditions and effects. Refer to TypeScript 'LightingOption' type for extensive suggested values (e.g., 'golden hour', 'dramatic chiaroscuro') or provide a custom string."
     },
     "mood": {
       "type": "string",
-      "description": "Emotional or atmospheric tone. Refer to TypeScript 'MoodOption' type for suggested values and the option for custom strings."
+      "description": "Dominant emotional atmosphere or feeling. Refer to TypeScript 'MoodOption' type for extensive suggested values (e.g., 'serene and peaceful', 'dark and ominous') or provide a custom string."
     },
     "background": {
       "type": "object",
       "required": ["elements", "depth_of_field"],
-      "description": "Details of the background environment. Refer to TypeScript 'Background' type.",
+      "description": "Details about the environment or setting behind the main subjects. Refer to TypeScript 'Background' type.",
       "properties": {
+        "environment_type": {
+          "type": "string",
+          "description": "(Optional) The general category of the background environment. Refer to TypeScript 'EnvironmentTypeOption' for suggestions (e.g., 'exterior - urban', 'interior - fantastical')."
+        },
         "elements": {
           "type": "array",
-          "description": "List of visible background features (e.g. 'bicycles', 'pedestrians').",
-          "items": { "type": "string" }
+          "description": "List of key features or objects in the background.",
+          "items": { "type": "string" },
+          "examples": [["towering snow-capped mountains", "distant castle"]]
         },
         "depth_of_field": {
           "type": "string",
-          "description": "Focus treatment for background. Refer to TypeScript 'DepthOfFieldOption' type for suggested values and the option for custom strings."
+          "description": "How focus is handled for the background. Refer to TypeScript 'DepthOfFieldOption' for suggestions (e.g., 'shallow (blurred background)', 'deep (most of scene in focus)')."
         }
       }
     },
     "composition": {
       "type": "string",
-      "description": "Visual framing method. Refer to TypeScript 'CompositionOption' type for suggested values and the option for custom strings."
+      "description": "Arrangement of visual elements. Refer to TypeScript 'CompositionOption' for suggestions (e.g., 'rule of thirds', 'leading lines')."
     },
     "camera": {
       "type": "object",
       "required": ["angle", "distance", "focus"],
-      "description": "Camera framing details. Refer to TypeScript 'Camera' type.",
+      "description": "Virtual camera's viewpoint, framing, lens, and focus. Refer to TypeScript 'Camera' type.",
       "properties": {
         "angle": {
           "type": "string",
-          "description": "Camera angle. Refer to TypeScript 'CameraAngleOption' type for suggested values and the option for custom strings."
+          "description": "Camera angle. Refer to TypeScript 'CameraAngleOption' for suggestions (e.g., 'eye-level shot', 'low-angle shot')."
         },
         "distance": {
           "type": "string",
-          "description": "Camera distance from subjects. Refer to TypeScript 'CameraDistanceOption' type for suggested values and the option for custom strings."
+          "description": "Camera distance from subjects. Refer to TypeScript 'CameraDistanceOption' for suggestions (e.g., 'close-up (CU)', 'long shot (LS)')."
+        },
+        "lens_type": {
+          "type": "string",
+          "description": "(Optional) Type of virtual camera lens. Refer to TypeScript 'CameraLensOption' for suggestions (e.g., 'wide-angle lens', 'telephoto lens')."
         },
         "focus": {
           "type": "string",
-          "description": "Focus point. Refer to TypeScript 'CameraFocusOption' type for suggested values and the option for custom strings."
+          "description": "Main point of focus. Refer to TypeScript 'CameraFocusOption' for suggestions (e.g., 'pin-sharp focus on primary subject', 'selective focus')."
         }
       }
     },
     "color_palette": {
       "type": "array",
-      "description": "Dominant colors to use in the scene. Can be color names or hex codes.\nExamples:\n- `['monochromatic blues', 'warm earth tones', '#FF0000', 'emerald green']`",
-      "items": { "type": "string" }
+      "description": "List of dominant or significant colors or color schemes.",
+      "items": { "type": "string" },
+      "examples": [
+        ["monochromatic blues and grays"],
+        ["warm earth tones: terracotta, ochre, forest green"]
+      ]
     },
     "props": {
       "type": "array",
-      "description": "Items in the scene (e.g. 'coffee cup', 'notebook').",
-      "items": { "type": "string" }
+      "description": "(Optional) Specific inanimate items or objects present in the scene.",
+      "items": { "type": "string" },
+      "examples": [["a steaming cup of coffee", "an ancient sword"]]
     },
     "resolution": {
       "type": "object",
@@ -120,53 +139,104 @@
       "required": ["width", "height", "aspect_ratio", "dpi"],
       "properties": {
         "width": {
-          "type": "integer",
-          "description": "The desired width of the output image in pixels."
+          "type": ["string", "integer"],
+          "description": "Desired width in pixels. Can be a predefined string (e.g., '1024', '1920') or a custom integer. Refer to TypeScript 'WidthOption' for string suggestions.",
+          "examples": ["1024", 1920]
         },
         "height": {
-          "type": "integer",
-          "description": "The desired height of the output image in pixels."
+          "type": ["string", "integer"],
+          "description": "Desired height in pixels. Can be a predefined string (e.g., '768', '1080') or a custom integer. Refer to TypeScript 'HeightOption' for string suggestions.",
+          "examples": ["768", 1080]
         },
         "aspect_ratio": {
           "type": "string",
-          "description": "The proportional relationship (W:H). Refer to TypeScript 'AspectRatioOption' type for suggested values or provide custom e.g., '5:4'.",
-          "pattern": "^\\d+:\\d+$"
+          "description": "Proportional relationship (W:H). Refer to TypeScript 'AspectRatioOption' for suggested values (e.g., '16:9 (Landscape Widescreen - HD/4K Video, YouTube)') or provide custom like '5:4'.",
+          "pattern": "^[\\w\\s():./-]+$",
+          "examples": ["16:9", "1:1 (Square)", "4:3"]
         },
         "dpi": {
-          "type": "integer",
-          "description": "Dots Per Inch. Specifies the print resolution. Common values: 72 (web), 300 (print)."
+          "type": ["string", "integer"],
+          "description": "Dots Per Inch. Specifies print resolution. Can be a predefined string (e.g., '72 (Web/Screen)', '300 (Standard Print)') or custom integer. Refer to TypeScript 'DpiOption' for string suggestions.",
+          "examples": ["72 (Web/Screen)", 300]
         },
         "label": {
           "type": "string",
-          "description": "(Optional) A human-readable label for the resolution combination."
+          "description": "(Optional) Human-readable label for the resolution (e.g., 'Full HD Landscape')."
         }
       }
     },
     "text_overlays": {
       "type": "array",
-      "description": "(Optional) Text elements to display within the image. Refer to TypeScript 'TextOverlay' type.",
+      "description": "(Optional) Text elements to render onto the image. Refer to TypeScript 'TextOverlay' type.",
       "items": {
         "type": "object",
         "required": ["content", "position"],
         "properties": {
           "content": {
             "type": "string",
-            "description": "The text to show."
+            "description": "The actual text string to display."
           },
           "position": {
             "type": "string",
-            "description": "Text placement. Refer to TypeScript 'TextPositionOption' type for suggested values or provide custom e.g., 'top-left'."
+            "description": "Where the text should be placed. Refer to TypeScript 'TextPositionOption' for suggestions (e.g., 'bottom-center edge', 'top-left corner')."
           },
           "style": {
             "type": "string",
-            "description": "Font style and color (e.g. 'bold white serif')."
+            "description": "(Optional) Describes the general style of the text (e.g., 'bold white sans-serif')."
+          },
+          "font_family": {
+            "type": "string",
+            "description": "(Optional) Desired font family (e.g., 'Arial', 'Orbitron'). AI interpretation may vary."
+          },
+          "font_color": {
+            "type": "string",
+            "description": "(Optional) Color of the text (e.g., 'white', '#FF0000', 'cyan')."
           },
           "size": {
             "type": "string",
-            "description": "Relative or absolute text size (e.g. 'large', '14pt')."
+            "description": "(Optional) Relative or absolute size of the text (e.g., 'large', '10% of image height', '24pt'). AI interpretation may vary."
+          },
+          "opacity": {
+            "type": "number",
+            "minimum": 0.0,
+            "maximum": 1.0,
+            "description": "(Optional) Opacity of the text, from 0.0 (transparent) to 1.0 (opaque)."
+          },
+          "rotation": {
+            "type": "number",
+            "description": "(Optional) Rotation of the text in degrees (e.g., -15, 90)."
           }
         }
       }
+    },
+    "negative_prompt": {
+      "type": ["string", "array"],
+      "description": "(Optional) Concepts, objects, styles, or attributes to avoid. Can be a single string or an array of strings.",
+      "items": { "type": "string" },
+      "examples": [
+        "blurry, low quality",
+        ["text", "watermark", "deformed hands"]
+      ]
+    },
+    "seed": {
+      "type": "integer",
+      "description": "(Optional) Specific seed value for the random number generator for reproducibility.",
+      "examples": [42, 1234567890]
+    },
+    "guidance_scale": {
+      "type": "number",
+      "description": "(Optional) Controls how strictly the AI adheres to the prompt. Higher values mean stricter adherence. Typical range: 1-20.",
+      "examples": [7.5, 11]
+    },
+    "num_inference_steps": {
+      "type": "integer",
+      "description": "(Optional) Number of denoising steps. More steps can improve quality but take longer. Typical range: 20-100.",
+      "examples": [30, 50]
+    },
+    "model_identifier": {
+      "type": "string",
+      "description": "(Optional) Specifies which AI generation model to use if multiple are available.",
+      "examples": ["stable-diffusion-xl-base-1.0", "dall-e-3-hd"]
     }
   }
 }
