@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/xcaeser/generation-schemas/main/schemas/v1.0.0/image-generation.schema.json",
   "title": "Image Generation Prompt Schema for AI Studio",
-  "description": "This schema defines a structured way to describe a visual scene for generative AI models. Providing detailed, well-organized prompts helps the AI understand your intent more accurately, leading to higher quality and more specific image outputs. Use this schema to guide your AI Studio prompt creation for optimal results. Each field contributes to a different aspect of the final image, from the overall concept to minute details.",
+  "description": "This schema defines the basic structure for a visual scene description for generative AI models. Detailed options, suggestions, and strong typing are provided by the corresponding TypeScript types. This schema is for basic validation of raw JSON data.",
   "type": "object",
   "required": [
     "scene",
@@ -17,124 +17,14 @@
     "props",
     "resolution"
   ],
-  "$defs": {
-    "styleEnum": {
-      "enum": [
-        "photorealistic, cinematic",
-        "impressionistic oil painting",
-        "anime concept art, Makoto Shinkai style",
-        "steampunk digital illustration",
-        "Art Nouveau poster design",
-        "Studio Ghibli animation style",
-        "retro 8-bit pixel art",
-        "watercolor",
-        "charcoal sketch",
-        "vector art",
-        "low poly"
-      ]
-    },
-    "lightingEnum": {
-      "enum": [
-        "golden hour, soft warm light with long shadows",
-        "dramatic chiaroscuro, high contrast",
-        "moonlit night, cool blue tones",
-        "overcast day, diffused, even lighting",
-        "neon city lights at night, vibrant reflections",
-        "eerie bioluminescent glow",
-        "studio lighting, three-point setup",
-        "backlit, creating a silhouette",
-        "underwater caustics"
-      ]
-    },
-    "moodEnum": {
-      "enum": [
-        "serene and peaceful",
-        "dark, ominous, and suspenseful",
-        "joyful, vibrant, and energetic",
-        "mysterious and enchanting",
-        "nostalgic and melancholic",
-        "epic and awe-inspiring",
-        "whimsical and playful",
-        "romantic and intimate",
-        "tense and dramatic"
-      ]
-    },
-    "depthOfFieldEnum": {
-      "enum": [
-        "shallow, background heavily blurred (strong bokeh)",
-        "deep, entire scene in sharp focus",
-        "medium, background slightly out of focus",
-        "foreground blurred, background sharp"
-      ]
-    },
-    "compositionEnum": {
-      "enum": [
-        "rule of thirds",
-        "symmetrical",
-        "leading lines",
-        "golden ratio",
-        "dynamic diagonal",
-        "centered subject, minimalist background",
-        "frame within a frame"
-      ]
-    },
-    "cameraAngleEnum": {
-      "enum": [
-        "eye-level shot",
-        "low-angle shot",
-        "high-angle shot",
-        "Dutch angle (tilted)",
-        "bird's-eye view (overhead)",
-        "worm's-eye view (from below)",
-        "over-the-shoulder shot"
-      ]
-    },
-    "cameraDistanceEnum": {
-      "enum": [
-        "extreme close-up (ECU)",
-        "close-up (CU)",
-        "medium close-up (MCU)",
-        "medium shot (MS)",
-        "medium long shot (MLS) / cowboy shot",
-        "full shot (FS)",
-        "long shot (LS)",
-        "extreme long shot (ELS) / establishing shot"
-      ]
-    },
-    "cameraFocusEnum": {
-      "enum": [
-        "sharp focus on primary subject's face",
-        "selective focus on a specific prop",
-        "soft focus overall (dreamy effect)",
-        "deep focus (everything sharp)",
-        "eyes in sharp focus"
-      ]
-    },
-    "aspectRatioEnum": {
-      "enum": ["1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3", "21:9"]
-    },
-    "textPositionEnum": {
-      "enum": [
-        "top-left",
-        "top-center",
-        "top-right",
-        "middle-left",
-        "center",
-        "middle-right",
-        "bottom-left",
-        "bottom-center",
-        "bottom-right"
-      ]
-    }
-  },
   "properties": {
     "scene": {
       "type": "string",
-      "description": "A concise, high-level summary of the entire visual scene. This sets the overall stage. Think of it as the 'elevator pitch' for your image. Be descriptive but brief.\nExamples:\n- 'A lone astronaut discovering an ancient alien artifact on a desolate Mars landscape.'\n- 'A bustling medieval marketplace filled with merchants, shoppers, and street performers.'\n- 'A serene, enchanted forest clearing at twilight with glowing flora.'"
+      "description": "A concise, high-level summary of the entire visual scene. Refer to TypeScript types for detailed examples.\nExamples:\n- 'A lone astronaut discovering an ancient alien artifact on a desolate Mars landscape.'"
     },
     "subjects": {
       "type": "array",
-      "description": "Defines the main characters, creatures, or animate objects that are the focus of the scene. At least one subject is required. For inanimate focal points (e.g., a magical sword), consider if it's a 'prop' or if its significance elevates it to a 'subject'.",
+      "description": "Main people or characters in the scene. At least one subject is required. Refer to TypeScript types for the 'Subject' structure.",
       "minItems": 1,
       "items": {
         "type": "object",
@@ -142,284 +32,138 @@
         "properties": {
           "type": {
             "type": "string",
-            "description": "The general category or archetype of the subject. This helps the AI understand the subject's fundamental nature.\nExamples:\n- 'young woman'\n- 'elderly wizard'\n- 'cybernetic wolf'\n- 'brave knight'\n- 'mischievous fairy'"
+            "description": "Category or role (e.g. 'young woman', 'elderly wizard')."
           },
           "description": {
             "type": "string",
-            "description": "Detailed visual characteristics of the subject, including physical features, attire, and any distinguishing marks. The more specific you are, the closer the AI can get to your vision.\nExamples:\n- 'A 20-year-old woman with fiery red hair in a messy bun, freckles, wearing a leather jacket, ripped jeans, and combat boots.'\n- 'An ancient dragon with iridescent blue scales, a long, serpentine body, and eyes like molten gold, adorned with glowing runes.'\n- 'A robot with a polished chrome exterior, glowing blue optics, and visible gears, holding a datapad.'"
+            "description": "Visual description including age, features, and clothing."
           },
           "pose": {
             "type": "string",
-            "description": "The subject's body language or action. This conveys activity and intent.\nExamples:\n- 'standing confidently with arms crossed'\n- 'crouching low, ready to pounce'\n- 'mid-stride, running energetically'\n- 'sitting pensively, gazing into the distance'\n- 'levitating with arms outstretched'"
+            "description": "Pose or body language (e.g. 'leaning forward')."
           },
           "position": {
             "type": "string",
-            "description": "The subject's placement within the visual frame. This helps establish their relationship to other elements and the viewer.\nExamples:\n- 'center frame, dominant'\n- 'foreground left, slightly out of focus'\n- 'background right, partially obscured by mist'\n- 'mid-ground, interacting with another subject'"
+            "description": "Visual position in the frame (e.g. 'left foreground')."
           },
           "expression": {
             "type": "string",
-            "description": "The facial expression or emotional state conveyed by the subject. Crucial for storytelling and mood.\nExamples:\n- 'smiling warmly and invitingly'\n- 'a look of fierce determination'\n- 'eyes wide with awe and wonder'\n- 'a subtle, enigmatic smirk'\n- 'grimacing in pain'"
+            "description": "Facial expression or emotion (e.g. 'smiling softly')."
           }
         }
       }
     },
     "style": {
-      "description": "The overall artistic or visual style of the image. Select a predefined style or provide a custom description. This is a powerful field that dramatically influences the look and feel.",
-      "oneOf": [
-        {
-          "type": "string",
-          "$ref": "#/$defs/styleEnum",
-          "description": "Select a predefined artistic style."
-        },
-        {
-          "allOf": [
-            {
-              "type": "string",
-              "description": "Enter a custom artistic style description (e.g., 'surreal dreamscape with melting clocks')."
-            },
-            { "not": { "$ref": "#/$defs/styleEnum" } }
-          ]
-        }
-      ]
+      "type": "string",
+      "description": "The overall artistic or visual style. Refer to TypeScript 'StyleOption' type for suggested values and the option for custom strings."
     },
     "lighting": {
-      "description": "Describes the lighting conditions, light sources, and their effect on the scene. Choose a common lighting setup or describe a custom one. Lighting is key to mood and realism.",
-      "oneOf": [
-        {
-          "type": "string",
-          "$ref": "#/$defs/lightingEnum",
-          "description": "Select a predefined lighting style."
-        },
-        {
-          "allOf": [
-            {
-              "type": "string",
-              "description": "Enter a custom lighting description (e.g., 'light filtering through stained glass windows')."
-            },
-            { "not": { "$ref": "#/$defs/lightingEnum" } }
-          ]
-        }
-      ]
+      "type": "string",
+      "description": "Lighting style and ambiance. Refer to TypeScript 'LightingOption' type for suggested values and the option for custom strings."
     },
     "mood": {
-      "description": "The dominant emotional atmosphere or feeling the image should evoke. Select a mood or describe a custom one. This often works in conjunction with lighting and color palette.",
-      "oneOf": [
-        {
-          "type": "string",
-          "$ref": "#/$defs/moodEnum",
-          "description": "Select a predefined mood."
-        },
-        {
-          "allOf": [
-            {
-              "type": "string",
-              "description": "Enter a custom mood description (e.g., 'a sense of quiet desolation after a storm')."
-            },
-            { "not": { "$ref": "#/$defs/moodEnum" } }
-          ]
-        }
-      ]
+      "type": "string",
+      "description": "Emotional or atmospheric tone. Refer to TypeScript 'MoodOption' type for suggested values and the option for custom strings."
     },
     "background": {
       "type": "object",
       "required": ["elements", "depth_of_field"],
-      "description": "Details about the environment or setting behind the main subjects. This provides context and depth to the scene.",
+      "description": "Details of the background environment. Refer to TypeScript 'Background' type.",
       "properties": {
         "elements": {
           "type": "array",
-          "description": "A list of key features, objects, or environmental details visible in the background. Don't over-clutter; focus on what's important for context.\nExamples:\n- `['towering snow-capped mountains', 'a distant, crumbling castle', 'dense, foggy forest']`\n- `['futuristic skyscrapers with flying vehicles', 'a holographic billboard', 'crowded streets below']`\n- `['calm ocean waves', 'a tropical beach with palm trees', 'a setting sun on the horizon']`",
+          "description": "List of visible background features (e.g. 'bicycles', 'pedestrians').",
           "items": { "type": "string" }
         },
         "depth_of_field": {
-          "description": "How focus is handled for the background, affecting its clarity relative to the subjects. Choose a preset or describe a custom effect.",
-          "oneOf": [
-            {
-              "type": "string",
-              "$ref": "#/$defs/depthOfFieldEnum",
-              "description": "Select a predefined depth of field effect."
-            },
-            {
-              "allOf": [
-                {
-                  "type": "string",
-                  "description": "Enter a custom depth of field description (e.g., 'tilt-shift effect making it look miniature')."
-                },
-                { "not": { "$ref": "#/$defs/depthOfFieldEnum" } }
-              ]
-            }
-          ]
+          "type": "string",
+          "description": "Focus treatment for background. Refer to TypeScript 'DepthOfFieldOption' type for suggested values and the option for custom strings."
         }
       }
     },
     "composition": {
-      "description": "The arrangement of visual elements within the frame. Choose a known compositional rule or describe your desired layout.",
-      "oneOf": [
-        {
-          "type": "string",
-          "$ref": "#/$defs/compositionEnum",
-          "description": "Select a predefined compositional rule/method."
-        },
-        {
-          "allOf": [
-            {
-              "type": "string",
-              "description": "Enter a custom composition description (e.g., 'subject slightly off-center creating tension')."
-            },
-            { "not": { "$ref": "#/$defs/compositionEnum" } }
-          ]
-        }
-      ]
+      "type": "string",
+      "description": "Visual framing method. Refer to TypeScript 'CompositionOption' type for suggested values and the option for custom strings."
     },
     "camera": {
       "type": "object",
       "required": ["angle", "distance", "focus"],
-      "description": "Specifies the virtual camera's viewpoint, framing, and focus, as if you were a photographer or cinematographer.",
+      "description": "Camera framing details. Refer to TypeScript 'Camera' type.",
       "properties": {
         "angle": {
-          "description": "The angle from which the scene is viewed. Choose a standard angle or describe a custom one.",
-          "oneOf": [
-            {
-              "type": "string",
-              "$ref": "#/$defs/cameraAngleEnum",
-              "description": "Select a predefined camera angle."
-            },
-            {
-              "allOf": [
-                {
-                  "type": "string",
-                  "description": "Enter a custom camera angle (e.g., 'slightly above eye-level, looking down')."
-                },
-                { "not": { "$ref": "#/$defs/cameraAngleEnum" } }
-              ]
-            }
-          ]
+          "type": "string",
+          "description": "Camera angle. Refer to TypeScript 'CameraAngleOption' type for suggested values and the option for custom strings."
         },
         "distance": {
-          "description": "How close or far the camera is from the primary subjects. Choose a standard shot distance or describe a custom one.",
-          "oneOf": [
-            {
-              "type": "string",
-              "$ref": "#/$defs/cameraDistanceEnum",
-              "description": "Select a predefined camera distance/shot type."
-            },
-            {
-              "allOf": [
-                {
-                  "type": "string",
-                  "description": "Enter a custom camera distance description (e.g., 'just far enough to see the subject and their immediate surroundings')."
-                },
-                { "not": { "$ref": "#/$defs/cameraDistanceEnum" } }
-              ]
-            }
-          ]
+          "type": "string",
+          "description": "Camera distance from subjects. Refer to TypeScript 'CameraDistanceOption' type for suggested values and the option for custom strings."
         },
         "focus": {
-          "description": "Specifies the main point of focus in the image. Choose a common focus technique or describe a custom one.",
-          "oneOf": [
-            {
-              "type": "string",
-              "$ref": "#/$defs/cameraFocusEnum",
-              "description": "Select a predefined focus point/style."
-            },
-            {
-              "allOf": [
-                {
-                  "type": "string",
-                  "description": "Enter a custom focus description (e.g., 'focus pulling from foreground to background subject')."
-                },
-                { "not": { "$ref": "#/$defs/cameraFocusEnum" } }
-              ]
-            }
-          ]
+          "type": "string",
+          "description": "Focus point. Refer to TypeScript 'CameraFocusOption' type for suggested values and the option for custom strings."
         }
       }
     },
     "color_palette": {
       "type": "array",
-      "description": "A list of dominant or significant colors to be used in the scene. This can also describe a color scheme or temperature.\nExamples:\n- `['monochromatic blues and grays']`\n- `['warm earth tones: terracotta, ochre, forest green']`\n- `['vibrant neon pinks, cyans, and electric yellows']`\n- `['pastel palette: lavender, mint green, baby blue']`\n- `['sepia tones for a vintage look']`",
+      "description": "Dominant colors to use in the scene. Can be color names or hex codes.\nExamples:\n- `['monochromatic blues', 'warm earth tones', '#FF0000', 'emerald green']`",
       "items": { "type": "string" }
     },
     "props": {
       "type": "array",
-      "description": "Specific, usually inanimate, items or objects present in the scene that subjects might interact with or that add detail/context. Differentiate from 'background elements' by their potential for interaction or closer focus.\nExamples:\n- `['a steaming cup of coffee on a wooden table']`\n- `['an ancient, glowing sword embedded in a stone']`\n- `['a scattered pile of old books and scrolls']`\n- `['a futuristic data-pad displaying complex schematics']`",
+      "description": "Items in the scene (e.g. 'coffee cup', 'notebook').",
       "items": { "type": "string" }
     },
     "resolution": {
       "type": "object",
-      "description": "Defines the desired output image dimensions and aspect ratio. Providing explicit width, height, and aspect ratio ensures the AI generates an image with the intended proportions and size.",
-      "required": ["width", "height", "aspect_ratio"],
+      "description": "Defines the desired output image dimensions, aspect ratio, and DPI. Refer to TypeScript 'Resolution' type.",
+      "required": ["width", "height", "aspect_ratio", "dpi"],
       "properties": {
         "width": {
           "type": "integer",
-          "description": "The desired width of the output image in pixels. This directly impacts the level of detail and file size.\nExample: 1920 (for Full HD landscape), 1080 (for Full HD portrait or square)"
+          "description": "The desired width of the output image in pixels."
         },
         "height": {
           "type": "integer",
-          "description": "The desired height of the output image in pixels. Works in conjunction with width to define the image's overall size.\nExample: 1080 (for Full HD landscape or square), 1920 (for Full HD portrait)"
+          "description": "The desired height of the output image in pixels."
         },
         "aspect_ratio": {
-          "description": "The proportional relationship between the image's width and height. Choose a standard ratio or specify a custom one if needed, ensuring it aligns with width/height.",
-          "oneOf": [
-            {
-              "type": "string",
-              "$ref": "#/$defs/aspectRatioEnum",
-              "description": "Select a predefined aspect ratio (W:H)."
-            },
-            {
-              "allOf": [
-                {
-                  "type": "string",
-                  "pattern": "^\\d+:\\d+$",
-                  "description": "Enter a custom aspect ratio in W:H format (e.g., '5:4')."
-                },
-                { "not": { "$ref": "#/$defs/aspectRatioEnum" } }
-              ]
-            }
-          ]
+          "type": "string",
+          "description": "The proportional relationship (W:H). Refer to TypeScript 'AspectRatioOption' type for suggested values or provide custom e.g., '5:4'.",
+          "pattern": "^\\d+:\\d+$"
+        },
+        "dpi": {
+          "type": "integer",
+          "description": "Dots Per Inch. Specifies the print resolution. Common values: 72 (web), 300 (print)."
         },
         "label": {
           "type": "string",
-          "description": "(Optional) A human-readable label for the resolution and aspect ratio combination. This is for convenience and documentation, not typically parsed by the AI.\nExamples:\n- 'Full HD Landscape'\n- 'Square HD'\n- 'Mobile Story Portrait'\n- '4K Widescreen'"
+          "description": "(Optional) A human-readable label for the resolution combination."
         }
       }
     },
     "text_overlays": {
       "type": "array",
-      "description": "(Optional) Text elements to be rendered onto the image. Useful for titles, watermarks, or in-scene text like signs. AI generation of coherent text can be challenging, so keep it simple or use for stylistic effect.",
+      "description": "(Optional) Text elements to display within the image. Refer to TypeScript 'TextOverlay' type.",
       "items": {
         "type": "object",
         "required": ["content", "position"],
         "properties": {
           "content": {
             "type": "string",
-            "description": "The actual text string to display.\nExamples:\n- 'The Lost City'\n- 'Episode 3'\n- '© AI Studio 2024'"
+            "description": "The text to show."
           },
           "position": {
-            "description": "Where the text should be placed on the image. Choose a common position or describe a custom one.",
-            "oneOf": [
-              {
-                "type": "string",
-                "$ref": "#/$defs/textPositionEnum",
-                "description": "Select a predefined text position."
-              },
-              {
-                "allOf": [
-                  {
-                    "type": "string",
-                    "description": "Enter a custom position description (e.g., 'slightly above center')."
-                  },
-                  { "not": { "$ref": "#/$defs/textPositionEnum" } }
-                ]
-              }
-            ]
+            "type": "string",
+            "description": "Text placement. Refer to TypeScript 'TextPositionOption' type for suggested values or provide custom e.g., 'top-left'."
           },
           "style": {
             "type": "string",
-            "description": "Describes the font, color, and style of the text. AI might interpret this broadly.\nExamples:\n- 'bold white sans-serif font'\n- 'elegant gold script font'\n- 'glowing red futuristic font'\n- 'distressed, grungy lettering in black'"
+            "description": "Font style and color (e.g. 'bold white serif')."
           },
           "size": {
             "type": "string",
-            "description": "Relative or absolute size of the text. AI interpretation may vary.\nExamples:\n- 'large and prominent'\n- 'small and subtle'\n- '24pt (if supported)'\n- '10% of image height'"
+            "description": "Relative or absolute text size (e.g. 'large', '14pt')."
           }
         }
       }
