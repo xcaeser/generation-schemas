@@ -17,6 +17,116 @@
     "props",
     "resolution"
   ],
+  "$defs": {
+    "styleEnum": {
+      "enum": [
+        "photorealistic, cinematic",
+        "impressionistic oil painting",
+        "anime concept art, Makoto Shinkai style",
+        "steampunk digital illustration",
+        "Art Nouveau poster design",
+        "Studio Ghibli animation style",
+        "retro 8-bit pixel art",
+        "watercolor",
+        "charcoal sketch",
+        "vector art",
+        "low poly"
+      ]
+    },
+    "lightingEnum": {
+      "enum": [
+        "golden hour, soft warm light with long shadows",
+        "dramatic chiaroscuro, high contrast",
+        "moonlit night, cool blue tones",
+        "overcast day, diffused, even lighting",
+        "neon city lights at night, vibrant reflections",
+        "eerie bioluminescent glow",
+        "studio lighting, three-point setup",
+        "backlit, creating a silhouette",
+        "underwater caustics"
+      ]
+    },
+    "moodEnum": {
+      "enum": [
+        "serene and peaceful",
+        "dark, ominous, and suspenseful",
+        "joyful, vibrant, and energetic",
+        "mysterious and enchanting",
+        "nostalgic and melancholic",
+        "epic and awe-inspiring",
+        "whimsical and playful",
+        "romantic and intimate",
+        "tense and dramatic"
+      ]
+    },
+    "depthOfFieldEnum": {
+      "enum": [
+        "shallow, background heavily blurred (strong bokeh)",
+        "deep, entire scene in sharp focus",
+        "medium, background slightly out of focus",
+        "foreground blurred, background sharp"
+      ]
+    },
+    "compositionEnum": {
+      "enum": [
+        "rule of thirds",
+        "symmetrical",
+        "leading lines",
+        "golden ratio",
+        "dynamic diagonal",
+        "centered subject, minimalist background",
+        "frame within a frame"
+      ]
+    },
+    "cameraAngleEnum": {
+      "enum": [
+        "eye-level shot",
+        "low-angle shot",
+        "high-angle shot",
+        "Dutch angle (tilted)",
+        "bird's-eye view (overhead)",
+        "worm's-eye view (from below)",
+        "over-the-shoulder shot"
+      ]
+    },
+    "cameraDistanceEnum": {
+      "enum": [
+        "extreme close-up (ECU)",
+        "close-up (CU)",
+        "medium close-up (MCU)",
+        "medium shot (MS)",
+        "medium long shot (MLS) / cowboy shot",
+        "full shot (FS)",
+        "long shot (LS)",
+        "extreme long shot (ELS) / establishing shot"
+      ]
+    },
+    "cameraFocusEnum": {
+      "enum": [
+        "sharp focus on primary subject's face",
+        "selective focus on a specific prop",
+        "soft focus overall (dreamy effect)",
+        "deep focus (everything sharp)",
+        "eyes in sharp focus"
+      ]
+    },
+    "aspectRatioEnum": {
+      "enum": ["1:1", "16:9", "9:16", "4:3", "3:4", "3:2", "2:3", "21:9"]
+    },
+    "textPositionEnum": {
+      "enum": [
+        "top-left",
+        "top-center",
+        "top-right",
+        "middle-left",
+        "center",
+        "middle-right",
+        "bottom-left",
+        "bottom-center",
+        "bottom-right"
+      ]
+    }
+  },
   "properties": {
     "scene": {
       "type": "string",
@@ -58,24 +168,17 @@
       "oneOf": [
         {
           "type": "string",
-          "enum": [
-            "photorealistic, cinematic",
-            "impressionistic oil painting",
-            "anime concept art, Makoto Shinkai style",
-            "steampunk digital illustration",
-            "Art Nouveau poster design",
-            "Studio Ghibli animation style",
-            "retro 8-bit pixel art",
-            "watercolor",
-            "charcoal sketch",
-            "vector art",
-            "low poly"
-          ],
+          "$ref": "#/$defs/styleEnum",
           "description": "Select a predefined artistic style."
         },
         {
-          "type": "string",
-          "description": "Enter a custom artistic style description (e.g., 'surreal dreamscape with melting clocks')."
+          "allOf": [
+            {
+              "type": "string",
+              "description": "Enter a custom artistic style description (e.g., 'surreal dreamscape with melting clocks')."
+            },
+            { "not": { "$ref": "#/$defs/styleEnum" } }
+          ]
         }
       ]
     },
@@ -84,22 +187,17 @@
       "oneOf": [
         {
           "type": "string",
-          "enum": [
-            "golden hour, soft warm light with long shadows",
-            "dramatic chiaroscuro, high contrast",
-            "moonlit night, cool blue tones",
-            "overcast day, diffused, even lighting",
-            "neon city lights at night, vibrant reflections",
-            "eerie bioluminescent glow",
-            "studio lighting, three-point setup",
-            "backlit, creating a silhouette",
-            "underwater caustics"
-          ],
+          "$ref": "#/$defs/lightingEnum",
           "description": "Select a predefined lighting style."
         },
         {
-          "type": "string",
-          "description": "Enter a custom lighting description (e.g., 'light filtering through stained glass windows')."
+          "allOf": [
+            {
+              "type": "string",
+              "description": "Enter a custom lighting description (e.g., 'light filtering through stained glass windows')."
+            },
+            { "not": { "$ref": "#/$defs/lightingEnum" } }
+          ]
         }
       ]
     },
@@ -108,22 +206,17 @@
       "oneOf": [
         {
           "type": "string",
-          "enum": [
-            "serene and peaceful",
-            "dark, ominous, and suspenseful",
-            "joyful, vibrant, and energetic",
-            "mysterious and enchanting",
-            "nostalgic and melancholic",
-            "epic and awe-inspiring",
-            "whimsical and playful",
-            "romantic and intimate",
-            "tense and dramatic"
-          ],
+          "$ref": "#/$defs/moodEnum",
           "description": "Select a predefined mood."
         },
         {
-          "type": "string",
-          "description": "Enter a custom mood description (e.g., 'a sense of quiet desolation after a storm')."
+          "allOf": [
+            {
+              "type": "string",
+              "description": "Enter a custom mood description (e.g., 'a sense of quiet desolation after a storm')."
+            },
+            { "not": { "$ref": "#/$defs/moodEnum" } }
+          ]
         }
       ]
     },
@@ -142,17 +235,17 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": [
-                "shallow, background heavily blurred (strong bokeh)",
-                "deep, entire scene in sharp focus",
-                "medium, background slightly out of focus",
-                "foreground blurred, background sharp"
-              ],
+              "$ref": "#/$defs/depthOfFieldEnum",
               "description": "Select a predefined depth of field effect."
             },
             {
-              "type": "string",
-              "description": "Enter a custom depth of field description (e.g., 'tilt-shift effect making it look miniature')."
+              "allOf": [
+                {
+                  "type": "string",
+                  "description": "Enter a custom depth of field description (e.g., 'tilt-shift effect making it look miniature')."
+                },
+                { "not": { "$ref": "#/$defs/depthOfFieldEnum" } }
+              ]
             }
           ]
         }
@@ -163,20 +256,17 @@
       "oneOf": [
         {
           "type": "string",
-          "enum": [
-            "rule of thirds",
-            "symmetrical",
-            "leading lines",
-            "golden ratio",
-            "dynamic diagonal",
-            "centered subject, minimalist background",
-            "frame within a frame"
-          ],
+          "$ref": "#/$defs/compositionEnum",
           "description": "Select a predefined compositional rule/method."
         },
         {
-          "type": "string",
-          "description": "Enter a custom composition description (e.g., 'subject slightly off-center creating tension')."
+          "allOf": [
+            {
+              "type": "string",
+              "description": "Enter a custom composition description (e.g., 'subject slightly off-center creating tension')."
+            },
+            { "not": { "$ref": "#/$defs/compositionEnum" } }
+          ]
         }
       ]
     },
@@ -190,20 +280,17 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": [
-                "eye-level shot",
-                "low-angle shot",
-                "high-angle shot",
-                "Dutch angle (tilted)",
-                "bird's-eye view (overhead)",
-                "worm's-eye view (from below)",
-                "over-the-shoulder shot"
-              ],
+              "$ref": "#/$defs/cameraAngleEnum",
               "description": "Select a predefined camera angle."
             },
             {
-              "type": "string",
-              "description": "Enter a custom camera angle (e.g., 'slightly above eye-level, looking down')."
+              "allOf": [
+                {
+                  "type": "string",
+                  "description": "Enter a custom camera angle (e.g., 'slightly above eye-level, looking down')."
+                },
+                { "not": { "$ref": "#/$defs/cameraAngleEnum" } }
+              ]
             }
           ]
         },
@@ -212,21 +299,17 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": [
-                "extreme close-up (ECU)",
-                "close-up (CU)",
-                "medium close-up (MCU)",
-                "medium shot (MS)",
-                "medium long shot (MLS) / cowboy shot",
-                "full shot (FS)",
-                "long shot (LS)",
-                "extreme long shot (ELS) / establishing shot"
-              ],
+              "$ref": "#/$defs/cameraDistanceEnum",
               "description": "Select a predefined camera distance/shot type."
             },
             {
-              "type": "string",
-              "description": "Enter a custom camera distance description (e.g., 'just far enough to see the subject and their immediate surroundings')."
+              "allOf": [
+                {
+                  "type": "string",
+                  "description": "Enter a custom camera distance description (e.g., 'just far enough to see the subject and their immediate surroundings')."
+                },
+                { "not": { "$ref": "#/$defs/cameraDistanceEnum" } }
+              ]
             }
           ]
         },
@@ -235,18 +318,17 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": [
-                "sharp focus on primary subject's face",
-                "selective focus on a specific prop",
-                "soft focus overall (dreamy effect)",
-                "deep focus (everything sharp)",
-                "eyes in sharp focus"
-              ],
+              "$ref": "#/$defs/cameraFocusEnum",
               "description": "Select a predefined focus point/style."
             },
             {
-              "type": "string",
-              "description": "Enter a custom focus description (e.g., 'focus pulling from foreground to background subject')."
+              "allOf": [
+                {
+                  "type": "string",
+                  "description": "Enter a custom focus description (e.g., 'focus pulling from foreground to background subject')."
+                },
+                { "not": { "$ref": "#/$defs/cameraFocusEnum" } }
+              ]
             }
           ]
         }
@@ -280,22 +362,18 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": [
-                "1:1",
-                "16:9",
-                "9:16",
-                "4:3",
-                "3:4",
-                "3:2",
-                "2:3",
-                "21:9"
-              ],
+              "$ref": "#/$defs/aspectRatioEnum",
               "description": "Select a predefined aspect ratio (W:H)."
             },
             {
-              "type": "string",
-              "pattern": "^\\d+:\\d+$",
-              "description": "Enter a custom aspect ratio in W:H format (e.g., '5:4')."
+              "allOf": [
+                {
+                  "type": "string",
+                  "pattern": "^\\d+:\\d+$",
+                  "description": "Enter a custom aspect ratio in W:H format (e.g., '5:4')."
+                },
+                { "not": { "$ref": "#/$defs/aspectRatioEnum" } }
+              ]
             }
           ]
         },
@@ -321,22 +399,17 @@
             "oneOf": [
               {
                 "type": "string",
-                "enum": [
-                  "top-left",
-                  "top-center",
-                  "top-right",
-                  "middle-left",
-                  "center",
-                  "middle-right",
-                  "bottom-left",
-                  "bottom-center",
-                  "bottom-right"
-                ],
+                "$ref": "#/$defs/textPositionEnum",
                 "description": "Select a predefined text position."
               },
               {
-                "type": "string",
-                "description": "Enter a custom position description (e.g., 'slightly above center')."
+                "allOf": [
+                  {
+                    "type": "string",
+                    "description": "Enter a custom position description (e.g., 'slightly above center')."
+                  },
+                  { "not": { "$ref": "#/$defs/textPositionEnum" } }
+                ]
               }
             ]
           },
