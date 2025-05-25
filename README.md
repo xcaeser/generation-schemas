@@ -1,6 +1,6 @@
 # 🎨 Image Generation Prompt Schema
 
-This repository defines a structured **JSON Schema** for describing scenes used in **AI-based image generation** (e.g. with ChatGPT, etc).
+This repository defines a structured **JSON Schema** for describing scenes used in **AI-based image generation** (e.g. with ChatGPT, Google Imagen 3.0 002).
 
 ## ✅ Usage in JSON
 
