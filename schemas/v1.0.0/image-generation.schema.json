@@ -54,16 +54,78 @@
       }
     },
     "style": {
-      "type": "string",
-      "description": "The overall artistic or visual style of the image. This is a powerful field that dramatically influences the look and feel. You can reference specific art movements, artists, or general aesthetic terms.\nExamples:\n- 'photorealistic, cinematic'\n- 'impressionistic oil painting'\n- 'anime concept art, Makoto Shinkai style'\n- 'steampunk digital illustration'\n- 'Art Nouveau poster design'\n- 'Studio Ghibli animation style'\n- 'retro 8-bit pixel art'"
+      "description": "The overall artistic or visual style of the image. Select a predefined style or provide a custom description. This is a powerful field that dramatically influences the look and feel.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "photorealistic, cinematic",
+            "impressionistic oil painting",
+            "anime concept art, Makoto Shinkai style",
+            "steampunk digital illustration",
+            "Art Nouveau poster design",
+            "Studio Ghibli animation style",
+            "retro 8-bit pixel art",
+            "watercolor",
+            "charcoal sketch",
+            "vector art",
+            "low poly"
+          ],
+          "description": "Select a predefined artistic style."
+        },
+        {
+          "type": "string",
+          "description": "Enter a custom artistic style description (e.g., 'surreal dreamscape with melting clocks')."
+        }
+      ]
     },
     "lighting": {
-      "type": "string",
-      "description": "Describes the lighting conditions, light sources, and their effect on the scene. Lighting is key to mood and realism.\nExamples:\n- 'golden hour, soft warm light with long shadows'\n- 'dramatic chiaroscuro, high contrast between light and dark'\n- 'moonlit night, cool blue tones, subtle highlights'\n- 'overcast day, diffused, even lighting'\n- 'neon city lights at night, casting vibrant, colorful reflections'\n- 'eerie bioluminescent glow from plants and fungi'"
+      "description": "Describes the lighting conditions, light sources, and their effect on the scene. Choose a common lighting setup or describe a custom one. Lighting is key to mood and realism.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "golden hour, soft warm light with long shadows",
+            "dramatic chiaroscuro, high contrast",
+            "moonlit night, cool blue tones",
+            "overcast day, diffused, even lighting",
+            "neon city lights at night, vibrant reflections",
+            "eerie bioluminescent glow",
+            "studio lighting, three-point setup",
+            "backlit, creating a silhouette",
+            "underwater caustics"
+          ],
+          "description": "Select a predefined lighting style."
+        },
+        {
+          "type": "string",
+          "description": "Enter a custom lighting description (e.g., 'light filtering through stained glass windows')."
+        }
+      ]
     },
     "mood": {
-      "type": "string",
-      "description": "The dominant emotional atmosphere or feeling the image should evoke. This often works in conjunction with lighting and color palette.\nExamples:\n- 'serene and peaceful'\n- 'dark, ominous, and suspenseful'\n- 'joyful, vibrant, and energetic'\n- 'mysterious and enchanting'\n- 'nostalgic and melancholic'\n- 'epic and awe-inspiring'"
+      "description": "The dominant emotional atmosphere or feeling the image should evoke. Select a mood or describe a custom one. This often works in conjunction with lighting and color palette.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "serene and peaceful",
+            "dark, ominous, and suspenseful",
+            "joyful, vibrant, and energetic",
+            "mysterious and enchanting",
+            "nostalgic and melancholic",
+            "epic and awe-inspiring",
+            "whimsical and playful",
+            "romantic and intimate",
+            "tense and dramatic"
+          ],
+          "description": "Select a predefined mood."
+        },
+        {
+          "type": "string",
+          "description": "Enter a custom mood description (e.g., 'a sense of quiet desolation after a storm')."
+        }
+      ]
     },
     "background": {
       "type": "object",
@@ -76,14 +138,47 @@
           "items": { "type": "string" }
         },
         "depth_of_field": {
-          "type": "string",
-          "description": "How focus is handled for the background, affecting its clarity relative to the subjects. This mimics camera lens effects.\nExamples:\n- 'shallow, background heavily blurred (strong bokeh effect)'\n- 'deep, entire scene in sharp focus'\n- 'medium, background slightly out of focus to emphasize subjects'\n- 'rack focus effect, shifting from foreground to background'"
+          "description": "How focus is handled for the background, affecting its clarity relative to the subjects. Choose a preset or describe a custom effect.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "shallow, background heavily blurred (strong bokeh)",
+                "deep, entire scene in sharp focus",
+                "medium, background slightly out of focus",
+                "foreground blurred, background sharp"
+              ],
+              "description": "Select a predefined depth of field effect."
+            },
+            {
+              "type": "string",
+              "description": "Enter a custom depth of field description (e.g., 'tilt-shift effect making it look miniature')."
+            }
+          ]
         }
       }
     },
     "composition": {
-      "type": "string",
-      "description": "The arrangement of visual elements within the frame. Referencing compositional rules can guide the AI to create a more balanced and aesthetically pleasing image.\nExamples:\n- 'rule of thirds, subject on left vertical line'\n- 'symmetrical, perfectly balanced'\n- 'leading lines guiding the eye towards the subject'\n- 'golden ratio composition'\n- 'dynamic diagonal composition'\n- 'centered subject, minimalist background'"
+      "description": "The arrangement of visual elements within the frame. Choose a known compositional rule or describe your desired layout.",
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "rule of thirds",
+            "symmetrical",
+            "leading lines",
+            "golden ratio",
+            "dynamic diagonal",
+            "centered subject, minimalist background",
+            "frame within a frame"
+          ],
+          "description": "Select a predefined compositional rule/method."
+        },
+        {
+          "type": "string",
+          "description": "Enter a custom composition description (e.g., 'subject slightly off-center creating tension')."
+        }
+      ]
     },
     "camera": {
       "type": "object",
@@ -91,16 +186,69 @@
       "description": "Specifies the virtual camera's viewpoint, framing, and focus, as if you were a photographer or cinematographer.",
       "properties": {
         "angle": {
-          "type": "string",
-          "description": "The angle from which the scene is viewed. This impacts the viewer's perspective on the subjects and their power dynamic.\nExamples:\n- 'eye-level shot'\n- 'low-angle shot (looking up at subject, making them appear dominant)'\n- 'high-angle shot (looking down on subject, making them appear vulnerable)'\n- 'Dutch angle (tilted, creating unease)'\n- 'bird's-eye view (directly overhead)'\n- 'worm's-eye view (directly from below)'"
+          "description": "The angle from which the scene is viewed. Choose a standard angle or describe a custom one.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "eye-level shot",
+                "low-angle shot",
+                "high-angle shot",
+                "Dutch angle (tilted)",
+                "bird's-eye view (overhead)",
+                "worm's-eye view (from below)",
+                "over-the-shoulder shot"
+              ],
+              "description": "Select a predefined camera angle."
+            },
+            {
+              "type": "string",
+              "description": "Enter a custom camera angle (e.g., 'slightly above eye-level, looking down')."
+            }
+          ]
         },
         "distance": {
-          "type": "string",
-          "description": "How close or far the camera is from the primary subjects. This determines how much of the subject and their surroundings are visible.\nExamples:\n- 'extreme close-up (ECU) on eyes'\n- 'close-up (CU) of face and shoulders'\n- 'medium shot (MS) from waist up'\n- 'full shot (FS) showing entire body'\n- 'long shot (LS) showing subject within their environment'\n- 'establishing shot showing the overall location'"
+          "description": "How close or far the camera is from the primary subjects. Choose a standard shot distance or describe a custom one.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "extreme close-up (ECU)",
+                "close-up (CU)",
+                "medium close-up (MCU)",
+                "medium shot (MS)",
+                "medium long shot (MLS) / cowboy shot",
+                "full shot (FS)",
+                "long shot (LS)",
+                "extreme long shot (ELS) / establishing shot"
+              ],
+              "description": "Select a predefined camera distance/shot type."
+            },
+            {
+              "type": "string",
+              "description": "Enter a custom camera distance description (e.g., 'just far enough to see the subject and their immediate surroundings')."
+            }
+          ]
         },
         "focus": {
-          "type": "string",
-          "description": "Specifies the main point of focus in the image. This directs the viewer's attention.\nExamples:\n- 'sharp focus on the primary subject's face'\n- 'selective focus on a specific prop held by the subject'\n- 'soft focus overall for a dreamy effect'\n- 'everything in sharp focus (deep focus)'"
+          "description": "Specifies the main point of focus in the image. Choose a common focus technique or describe a custom one.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "sharp focus on primary subject's face",
+                "selective focus on a specific prop",
+                "soft focus overall (dreamy effect)",
+                "deep focus (everything sharp)",
+                "eyes in sharp focus"
+              ],
+              "description": "Select a predefined focus point/style."
+            },
+            {
+              "type": "string",
+              "description": "Enter a custom focus description (e.g., 'focus pulling from foreground to background subject')."
+            }
+          ]
         }
       }
     },
@@ -128,8 +276,28 @@
           "description": "The desired height of the output image in pixels. Works in conjunction with width to define the image's overall size.\nExample: 1080 (for Full HD landscape or square), 1920 (for Full HD portrait)"
         },
         "aspect_ratio": {
-          "type": "string",
-          "description": "The proportional relationship between the image's width and height. This should be consistent with the provided width and height values. Common formats are 'W:H'.\nExamples:\n- '16:9' (standard widescreen for videos, landscape images)\n- '1:1' (square, common for social media profiles)\n- '9:16' (portrait widescreen, for mobile stories)\n- '4:3' (traditional photography and older displays)\n- '3:2' (common in photography, e.g., DSLRs)"
+          "description": "The proportional relationship between the image's width and height. Choose a standard ratio or specify a custom one if needed, ensuring it aligns with width/height.",
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "1:1",
+                "16:9",
+                "9:16",
+                "4:3",
+                "3:4",
+                "3:2",
+                "2:3",
+                "21:9"
+              ],
+              "description": "Select a predefined aspect ratio (W:H)."
+            },
+            {
+              "type": "string",
+              "pattern": "^\\d+:\\d+$",
+              "description": "Enter a custom aspect ratio in W:H format (e.g., '5:4')."
+            }
+          ]
         },
         "label": {
           "type": "string",
@@ -149,8 +317,28 @@
             "description": "The actual text string to display.\nExamples:\n- 'The Lost City'\n- 'Episode 3'\n- '© AI Studio 2024'"
           },
           "position": {
-            "type": "string",
-            "description": "Where the text should be placed on the image. Be as specific as possible.\nExamples:\n- 'bottom-center'\n- 'top-left corner'\n- 'middle, slightly to the right'\n- 'across the top banner area'"
+            "description": "Where the text should be placed on the image. Choose a common position or describe a custom one.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "top-left",
+                  "top-center",
+                  "top-right",
+                  "middle-left",
+                  "center",
+                  "middle-right",
+                  "bottom-left",
+                  "bottom-center",
+                  "bottom-right"
+                ],
+                "description": "Select a predefined text position."
+              },
+              {
+                "type": "string",
+                "description": "Enter a custom position description (e.g., 'slightly above center')."
+              }
+            ]
           },
           "style": {
             "type": "string",
