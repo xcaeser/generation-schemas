@@ -7,7 +7,6 @@ This repository defines a structured **JSON Schema** for describing scenes used 
 ```json
 {
   "$schema": "https://raw.githubusercontent.com/xcaeser/generation-schemas/main/schemas/v1.0.0/image-generation.schema.json",
-  "version": "1.0.0",
   "scene": "urban café terrace in Paris during golden hour",
   ...
 }
